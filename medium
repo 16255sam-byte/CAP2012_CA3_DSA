@@ -1,0 +1,236 @@
+19
+
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* temp = head;
+        int count = 0;
+
+        while (temp != NULL){
+            count++;
+            temp = temp->next;
+        }
+        if(count ==n){
+            return head->next;
+        }
+        temp = head;
+
+        for(int i = 1 ; i < count-n; i++){
+            temp = temp->next;
+        }
+        temp->next = temp->next->next;
+        return head;
+    }
+};
+
+
+707
+
+class MyLinkedList {
+public:
+ struct Node{
+    int val;
+    Node*next;
+
+    Node(int x){
+        val = x;
+        next = NULL;
+    }
+ };
+ Node* head;
+    MyLinkedList() {
+      head = NULL;  
+    }
+    int get(int index){
+        Node* temp = head;
+
+        for(int i = 0; i<index; i++){
+            if(temp == NULL)
+            return -1;
+            temp = temp->next;
+        }
+        if(temp == NULL)
+        return -1;
+
+        return temp->val;
+    }
+    void addAtHead(int val){
+        Node*newNode = new Node(val);
+        newNode->next = head;
+        head = newNode;
+    }
+    void addAtTail(int val){
+        Node*newNode = new Node(val);
+        if(head == NULL){
+            head = newNode;
+            return;
+        }
+        Node*temp = head;
+        while(temp->next!=NULL){
+                 temp= temp->next;
+        }
+        temp->next =newNode;
+    }
+    void addAtIndex(int index , int val){
+        if(index == 0){
+            addAtHead(val);
+            return;
+        }
+        Node*temp = head;
+
+        for (int i =0 ; i <index-1 ; i++){
+            if(temp==NULL)
+            return;
+            temp = temp -> next;
+        }
+        if(temp==NULL)
+        return;
+
+        Node*newNode = new Node(val);
+        newNode->next = temp ->next;
+        temp->next = newNode;
+    }
+    
+
+    void deleteAtIndex(int index){
+        if(head == NULL)
+        return;
+
+        if(index == 0){
+            head = head->next;
+            return;
+        }
+        Node*temp = head;
+
+        for(int i = 0 ; i <index -1 ; i++){
+            if(temp->next == NULL)
+            return;
+            temp = temp->next;
+        }
+
+        if(temp->next == NULL)
+        return;
+
+        temp->next = temp->next->next;
+    }
+};
+    
+641
+
+class MyCircularDeque {
+public:
+vector<int>arr;
+int front, count, k ;
+    MyCircularDeque(int k) {
+        this->k = k;
+        arr.resize(k);
+        front = 0 ;
+        count = 0 ;
+        
+    }
+
+    
+    bool insertFront(int value) {
+        if (isFull()) return false;
+
+        front = (front - 1 + k) % k;
+        arr [front] = value; 
+        count++;
+        return true; 
+    }
+
+    bool insertLast(int value)  {
+        if (isFull()) return false;
+
+        int rear = (front + count) % k;
+        arr [rear] = value;
+        count++;
+        return true;
+    }
+
+    bool deleteFront() {
+       if(isEmpty()) return false;
+
+       front= (front+1)%k;
+       count--;
+       return true;
+    }
+    bool deleteLast(){
+        if(isEmpty())return false;
+count--;
+return true ;
+    }
+    int getFront(){
+        if(isEmpty())return -1;
+        return arr[front];
+    }
+    int getRear(){
+        if(isEmpty())return -1;
+        return arr[(front + count-1)%k];
+    }
+
+    bool isEmpty(){
+        return count == 0;
+    }
+    bool isFull(){
+        return count ==k;
+    }
+
+    };
+
+    946
+
+class Solution {
+public:
+    bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
+        stack<int> st;
+        int j = 0;
+
+        for (int i = 0; i <pushed.size();i++){
+            st.push(pushed[i]);
+            
+            while(!st.empty() && st.top ()== popped[j]){
+                st.pop();
+                j++;
+            }
+        }
+        return st.empty();
+    }
+};
+
+
+54
+
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int> ans;
+
+        int top = 0, bottom = matrix.size() -1;
+        int left = 0,right = matrix[0].size() -1;
+
+        while (top <= bottom && left<= right){
+        for (int i = left ; i <= right ; i++)
+            ans.push_back(matrix[top][i]);
+            top++;
+
+            for(int i = top; i<= bottom ; i++)
+             ans.push_back(matrix[i][right]);
+             right--;
+
+             if(top<= bottom){
+                for (int i = right; i>= left; i--)
+                ans.push_back(matrix[bottom][i]);
+                bottom--;
+             }
+
+             if(left<=right){
+                for(int i = bottom ; i>= top; i--)
+                ans.push_back(matrix[i][left]);
+                left++;
+             }
+        
+    }
+    return ans;
+}
+};
