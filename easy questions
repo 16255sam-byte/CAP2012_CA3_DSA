@@ -1,0 +1,222 @@
+1342 
+
+class Solution{
+ public:
+
+int numberOfSteps(int n)
+{
+    
+    int s = 0 ;
+     while(  n!=0 ){
+        if(n % 2 == 0){
+        n = n/2;
+        }
+    else
+    {
+    n = n - 1;
+    }
+    s++;
+}
+return s ;
+
+}
+};
+
+
+704
+
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+
+        int l = 0 ;
+        int r = nums.size()-1;
+
+        while(l<=r){
+            int mid = (l+r)/2;
+            if(nums[mid]==target)
+            return mid;
+            else if (nums[mid]<target)
+            l=mid+1;
+            else
+            r=mid-1;
+        }
+        return -1;
+    }
+};
+
+
+35
+
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+       int l = 0;
+       int r = nums.size()-1;
+
+       while(l<=r){
+        int mid = (l+r)/2;
+
+        if (nums[mid] == target)
+        return mid;
+        else if (nums[mid]<target)
+        l = mid+1;
+        else
+        r= mid-1;
+       }
+       return l;
+    }
+};
+
+
+283
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        
+        int j = 0;
+
+        for (int i = 0; i<nums.size();i++){
+            if(nums[i]!=0){
+                swap(nums[i],nums[j]);
+                j++;
+            }
+        }
+    }
+};
+
+141
+
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+
+        ListNode *slow =  head;
+         ListNode *fast =  head;
+
+         while (fast != NULL && fast->next !=NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+
+            if(slow == fast){
+                return true;
+            }
+         }
+         return false;
+            }
+         };
+
+
+         203
+
+
+         class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+       while (head != NULL && head->val == val){
+        head = head->next;
+       } 
+       ListNode* temp = head;
+
+       while (temp!= NULL && temp->next != NULL){
+        if(temp->next->val == val){
+            temp->next = temp->next->next;
+        }
+        else{
+            temp = temp->next;
+        }
+       }
+       return head ;
+        }
+       };
+    
+876
+
+
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        while (fast != NULL && fast ->next !=NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow ;
+    }
+};
+
+
+225
+
+class MyStack {
+public:
+   queue<int> q1 , q2;
+    MyStack() {
+        
+    }
+
+    
+    void push(int x) {
+        q1.push(x);
+        
+    }
+    int pop(){
+        while (q1.size()>1){
+            q2.push(q1.front());
+            q1.pop();
+        }
+        int a = q1.front();
+        q1.pop();
+
+        swap(q1,q2);
+        return a;
+
+    }
+    
+   
+    
+    int top() {
+        while(q1.size()>1){
+            q2.push(q1.front());
+            q1.pop();
+        }
+        int a = q1.front();
+        q1.pop();
+        q2.push(a);
+
+        swap(q1,q2);
+        return a ;
+    }
+    bool empty(){
+        return q1.empty();
+    }
+        
+    };
+
+    160
+
+    class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* a = headA;
+        ListNode* b = headB; 
+
+ 
+        while (a != b) {
+            if (a==NULL)
+            a = headB;
+            else
+            a = a ->next;
+
+            if(b==NULL)
+            b = headA;
+            else
+            b = b->next;
+        }
+        return a ;
+
+    } 
+};
